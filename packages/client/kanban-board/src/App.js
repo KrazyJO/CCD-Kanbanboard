@@ -1,23 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
+import Board from './Board.jsx';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Kanban Board 
-        </a>
+        <p>KANBAN BOARD CC Seminar</p>
       </header>
+        {/** fill with data from websocket */}
+        <Board 
+          ticketList={"List"} 
+          ticketText={"nothing selected"} />
     </div>
   );
 }
