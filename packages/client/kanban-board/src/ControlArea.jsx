@@ -2,13 +2,21 @@ export default function ControlArea (props) {
 
 
     function inputChange(evt) {
-        console.log("chan")
+        console.log("change")
     }
 
     return (
         <div className="controlContainer">
             <div className="textField">
-                <input value={props.ticketText} onChange={inputChange}/>
+                <label 
+                    htmlFor="ticketInput">
+                        Ticket Text
+                </label>
+                <input 
+                    id="ticketInput"
+                    name="ticketInput" 
+                    value={props.ticketText} 
+                    onChange={inputChange}/>
             </div>
             <div className="crudControls">
                 <button>Create</button>

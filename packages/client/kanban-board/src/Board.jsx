@@ -1,5 +1,5 @@
-import TicketList from './TicketList'
-import ControlArea from './ControlArea'
+import TicketList from './TicketList';
+import ControlArea from './ControlArea';
 
 export default function Board (props) {
 
@@ -9,7 +9,9 @@ export default function Board (props) {
                 <TicketList ticketList={props.ticketList} />
             </div>
             <div className="controlArea">
-               <ControlArea ticketText={props.ticketText}/>
+               {props.ticketList &&
+                <ControlArea ticketText={props.selectedTicket.text}/>
+               }
             </div>
         </div>
     )
