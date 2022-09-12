@@ -8,6 +8,16 @@ const handlers = [
                 text: "Test Do Text",
                 positionInColumn: "1",
                 id: "1"
+            },
+            {
+                text: "Test Do Text 2",
+                positionInColumn: "1",
+                id: "4"
+            },
+            {
+                text: "Test Do Text 3",
+                positionInColumn: "1",
+                id: "5"
             }
         ],
         "doing": [

@@ -20,8 +20,29 @@
 }
 
 .board {
-
+  
 }
+
+.boardList{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;    
+}
+
+.column{
+  border: 1px solid black;
+  justify-content: center;  
+  padding: 0 20px 10px 20px;
+  list-style: none;
+}
+
+.listItems:hover{
+  cursor:pointer;
+  color: grey;
+  /* font-weight: bold; */
+  /* font-style: italic; */
+}
+
 
 .controlContainer {
   display: flex;
