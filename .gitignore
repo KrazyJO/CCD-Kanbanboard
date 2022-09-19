@@ -1,3 +1,3 @@
 packages/**/node_modules/
 /node_modules/
-
+packages/server/kanban-board/dist
