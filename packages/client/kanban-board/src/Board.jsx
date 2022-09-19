@@ -10,7 +10,10 @@ export default function Board (props) {
             </div>
             <div className="controlArea">
                {props.ticketList &&
-                <ControlArea ticketText={props.selectedTicket.text}/>
+                    <ControlArea
+                        ticketTextNew={props.newTicketText? true : false} 
+                        ticketText={props.newTicketText? props.newTicketText : props.selectedTicket.text}
+                        inputChange={props.inputChange} />
                }
             </div>
         </div>

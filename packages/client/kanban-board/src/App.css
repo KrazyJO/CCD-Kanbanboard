@@ -15,6 +15,14 @@
   color: white;
 }
 
+.connected {
+  color: green;
+}
+
+.disconnected {
+  color: red;
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -59,13 +67,47 @@
   padding-right: 15px;
 }
 
+.inputLabel {
+  font-weight: bold;
+}
+
+.inputField {
+  margin-top: 10px;
+  height: 100%;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
 .crudControls {
   display: flex;
   flex-direction: column;
+  gap: 10px;
   padding-left: 50px;
   padding-right: 50px;
 }
 
 .moveControls {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
 
+.leftButton {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.upButton {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.downButton {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.rightButton {
+  grid-column: 3;
+  grid-row: 2;
 }
