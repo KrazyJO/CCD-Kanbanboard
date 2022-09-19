@@ -6,7 +6,7 @@ export default function Board (props) {
     return (
         <div className="board">
             <div className="ticketList">
-                <TicketList ticketList={props.ticketList} />
+                <TicketList ticketList={props.ticketList} ticketSelection={props.selectTicket} selectedTicket={props.selectedTicket} />
             </div>
             <div className="controlArea">
                {props.ticketList &&

@@ -1,29 +1,21 @@
-/** have fun housseyn */
-
 export default function TicketList (props) {
-    
-    var ticktList = props.ticketList;
 
-    function onItemClickHandler(evt) {
-        console.log(evt.currentTarget.textContent);
-    }
-
-      return (
-        <div className="boardList">
-          {Object.keys(ticktList).map((key, index) => { 
-              return (           
-                <ul key={index} className="column">
-                    <h3> {key} ({ticktList[key].length})</h3>
-                    {Object.values(ticktList[key]).map((value, index) => {
-                        return (
-                            <li key={value.id} onClick={onItemClickHandler} className="listItems">
-                                <div>{value.text}</div>
-                            </li>  
-                        );                
-                    })}
-                </ul>
-                 );
-          })}
-        </div>
-      );
+  return (
+    <div className="boardList">
+      {Object.keys(props.ticketList).map((key, index) => { 
+          return (           
+            <ul key={index} className="column">
+                <h3> {key} ({props.ticketList[key].length})</h3>
+                {Object.values(props.ticketList[key]).map((value, index) => {
+                    return (
+                        <li id={value.id} key={value.id} onClick={() => props.ticketSelection(value)} className="listItems">
+                            <div className={value === props.selectedTicket ? "selected" : ""}>{value.text}</div>
+                        </li>  
+                    );                
+                })}
+            </ul>
+              );
+      })}
+    </div>
+  );
 }
