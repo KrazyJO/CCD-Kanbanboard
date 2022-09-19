@@ -1,12 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { CRUDHandler } from './CRUDHandler.controller';
-import { WSHandler } from './WSHandler.gateway';
+import { CRUDHandler } from './Controller/CRUDHandler.controller';
+import { WSHandler } from './Gateway/WSHandler.gateway';
 
 @Module({
   imports: [],
-  controllers: [AppController, CRUDHandler],
-  providers: [AppService, WSHandler],
+  controllers: [CRUDHandler],
+  providers: [WSHandler],
 })
 export class AppModule {}
