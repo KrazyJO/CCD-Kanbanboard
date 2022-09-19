@@ -8,6 +8,7 @@ import {
     WebSocketServer,
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
+import FakeDB from './FakeDB';
 
 // 80, { namespace: 'events', cors: { origin: '*' } }
 @WebSocketGateway({ cors: { origin: '*' } })
@@ -33,5 +34,10 @@ export class WSHandler
     @SubscribeMessage('events')
     handleEvent(@MessageBody() data: string): string {
         return data;
+    }
+
+    public broadcastUpdatesToClient() {
+        const fakeDB = FakeDB.getInstance();
+        this.server.emit('events', fakeDB.getTicketList());
     }
 }

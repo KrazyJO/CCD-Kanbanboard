@@ -2,32 +2,35 @@ import { Body, Controller, Delete, Get, Post, Req } from "@nestjs/common";
 import FakeDB from "./FakeDB";
 import Ticket from "./Model/Ticket";
 import TicketList from "./Model/TicketList";
+import { WSHandler } from "./WSHandler.gateway";
 
 
 @Controller()
 export class CRUDHandler {
 
+    public constructor(private readonly wsHandler: WSHandler) {}
+
     @Post('receiveCreate')
-    public receiveCreate(@Body() ticket: Ticket): Ticket {
+    public receiveCreate(@Body() ticket: Ticket): void {
         FakeDB.getInstance().addTicket(ticket);
-        //Persistance->persist
-        // return true;
-        return ticket;
+        this.sendUpdatesToClients()
     }
 
     @Post('receiveUpdate')
-    public receiveUpdate(ticket: Ticket): void {
+    public receiveUpdate(@Body() ticket: Ticket): void {
         FakeDB.getInstance().updateTicket(ticket);
+        this.sendUpdatesToClients()
     }
 
     @Delete('receiveDelete')
-    public receiveDelete(ticket: Ticket): void {
-        Fak
+    public receiveDelete(@Body() ticket: Ticket): void {
+        FakeDB.getInstance().deleteTicket(ticket);
+        this.sendUpdatesToClients();
     }
 
     @Post('receiveMove')
     public receiveMove(ticket: Ticket, command: String) {
-
+        this.sendUpdatesToClients();
     }
 
     @Get('readBoardData')
@@ -36,5 +39,8 @@ export class CRUDHandler {
         return db.getTicketList();
     }
     
+    private sendUpdatesToClients() {
+        this.wsHandler.broadcastUpdatesToClient();
+    }
 
 }

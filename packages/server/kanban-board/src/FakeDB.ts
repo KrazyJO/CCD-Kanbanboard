@@ -57,13 +57,14 @@ class FakeDB {
         const newId = this.getNewId();
         ticket.positionInColumn = position;
         ticket.id = newId;
+        this.myModel.columns[Columns.ToDo].tickets.push(ticket);
     }
 
     public getNewId(): number {
         let id = 0;
         for (const column of this.myModel.columns) {
             for (const ticket of column.tickets) {
-                if (ticket.id > id) {
+                if (ticket.id >= id) {
                     id = ticket.id + 1;
                 }
             }
@@ -89,6 +90,7 @@ class FakeDB {
     }
 
     public updateTicket(ticket: Ticket) {
+        console.log(JSON.stringify(ticket))
         const persisted = this.findTicketById(ticket.id);
         this.persistTicketAttributes(persisted, ticket);
     }
@@ -97,7 +99,7 @@ class FakeDB {
         return this.myModel.columns[Columns.ToDo].tickets;
     }
 
-    public delete(ticketToDelete: Ticket) {
+    public deleteTicket(ticketToDelete: Ticket): boolean {
         let removedPosition: number;
         for (const column of this.myModel.columns) {
             for (let i = 0; i < column.tickets.length; i++) {
@@ -106,10 +108,11 @@ class FakeDB {
                     removedPosition = ticket.positionInColumn;
                     this.removeTicket(column, i);
                     this.updatePositions(column, removedPosition);
-                    return;
+                    return true;
                 }
             }
-        }        
+        }       
+        return false; 
     }
     
     updatePositions(column: Column, removedPosition: any) {
@@ -145,6 +148,9 @@ class FakeDB {
         throw new Error('NotExisiting');
     }
     
+    public reset(): void {
+        this.setupDB();
+    }
 }
 
 export default FakeDB;
