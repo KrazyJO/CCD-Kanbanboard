@@ -1,16 +1,17 @@
 import { Body, Controller, Delete, Get, Post, Req } from "@nestjs/common";
-import FakeDB from "./FakeDB";
-import Ticket from "./Model/Ticket";
-import TicketList from "./Model/TicketList";
-import { WSHandler } from "./WSHandler.gateway";
+import FakeDB from "../FakeDB";
+import ICRUDHandler from "../interfaces/ICRUDHandler";
+import Ticket from "../Model/Ticket";
+import TicketList from "../Model/TicketList";
+import { WSHandler } from "./../Gateway/WSHandler.gateway";
 
 
 @Controller()
-export class CRUDHandler {
+export class CRUDHandler implements ICRUDHandler {
 
     public constructor(private readonly wsHandler: WSHandler) {}
 
-    @Post('receiveCreate')
+    @Post('createTicket')
     public receiveCreate(@Body() ticket: Ticket): void {
         FakeDB.getInstance().addTicket(ticket);
         this.sendUpdatesToClients()
