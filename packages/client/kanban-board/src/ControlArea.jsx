@@ -1,30 +1,36 @@
+import ApiCallHandler from "./ApiCallHandler"
+
 export default function ControlArea (props) {
-
-
-    function inputChange(evt) {
-        console.log("change")
-    }
 
     return (
         <div className="controlContainer">
             <div className="textField">
                 <label 
-                    htmlFor="ticketInput">
+                    htmlFor="ticketInput"
+                    className="inputLabel">
                         Ticket Text
                 </label>
                 <input 
                     id="ticketInput"
-                    name="ticketInput" 
+                    name="ticketInput"
+                    className="inputField" 
                     value={props.ticketText} 
-                    onChange={inputChange}/>
+                    onChange={props.inputChange}/>
             </div>
             <div className="crudControls">
-                <button>Create</button>
+                <button
+                    disabled={!props.ticketTextNew} 
+                    onClick={() => ApiCallHandler.createTicket({ticketText: props.ticketText})}>
+                        Create
+                </button>
                 <button>Update</button>
                 <button>Delete</button>
             </div>
             <div className="moveControls">
-                <button>Right</button>
+                <button className="leftButton">Left</button>
+                <button className="upButton">Up</button>
+                <button className="downButton">Down</button>
+                <button className="rightButton">Right</button>
             </div>
         </div>
     )

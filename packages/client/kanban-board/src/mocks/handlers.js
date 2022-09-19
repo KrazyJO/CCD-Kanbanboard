@@ -1,44 +1,24 @@
 import {rest} from 'msw' // msw supports graphql too!
 
+import { TicketListClass } from './ticketList';
+
 const handlers = [
   rest.get('/readBoardData', async (req, res, ctx) => {
-    const ticketList = {
-        "toDo": [
-            {
-                text: "Test Do Text",
-                positionInColumn: "1",
-                id: "1"
-            },
-            {
-                text: "Test Do Text 2",
-                positionInColumn: "1",
-                id: "4"
-            },
-            {
-                text: "Test Do Text 3",
-                positionInColumn: "1",
-                id: "5"
-            }
-        ],
-        "doing": [
-            {
-                text: "Test Doing",
-                positionInColumn: "1",
-                id: "2"
-            }
-        ],
-        "done": [
-            {
-                text: "Test Done",
-                positionInColumn: "1",
-                id: "3"
-            }
-        ],
-    
-    }
     // console.log("mockdata fetch: " + ticketList);
-    return res(ctx.json({ticketList}));
+    const ticketList = TicketListClass.getInstance().ticketList;
+    return res(ctx.json({ ticketList }));
   }),
+  rest.post('/createTicket', async(req, res, ctx) => {
+    const data = await req.json();
+    const newTicket = {
+        text: "WS Ticket",
+        positionInColumn: 1,
+        id: 6
+    }
+   TicketListClass.getInstance().ticketList.toDo.push(newTicket);
+   console.log("New Ticketlist: " + JSON.stringify(TicketListClass.getInstance().ticketList));
+    return res(ctx.body("Success"));
+  })
 ]
 
 export {handlers}
