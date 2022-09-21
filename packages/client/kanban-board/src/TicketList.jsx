@@ -16,11 +16,11 @@ export default function TicketList (props) {
   return (
     <div className="boardList">
       {/** iterae over array only test code !! */}
-      {Object.keys(props.ticketList.columns[0]).map((key, index) => { 
+      {Object.values(props.ticketList.columns).map((value, index) => { 
           return (           
-            <ul key={index} className="column">
-                <h3> {key} ({props.ticketList.columns[0][key].length})</h3>
-                {Object.values(props.ticketList.columns[0][key]).map((value, index) => {
+            <ul key={index + 1} className="column">
+                <h3> {value.name} ({value.tickets.length})</h3>
+                {Object.values(value.tickets).map((value, index) => {
                     return (
                         <li id={value.id} key={value.id} onClick={() => props.ticketSelection(value)} className="listItems">
                             <div className={value === props.selectedTicket ? "selected" : ""}>{value.text}</div>
