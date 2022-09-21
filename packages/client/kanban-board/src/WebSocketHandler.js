@@ -2,7 +2,7 @@ import { useCallback } from "react";
 
 export function initWebSocket(handleTicketListChange, setConnected, wsRef) {
     console.log("init WS");
-    const ws = new WebSocket("ws://localhost:1234");
+    const ws = new WebSocket("ws://localhost:3000");
     ws.onopen = () => {
       setConnected(true);
       console.log("ws client opened");

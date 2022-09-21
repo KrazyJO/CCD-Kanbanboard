@@ -1,12 +1,12 @@
 export default class ApiCallHandler {
     static readBoardData(handleTicketListChange) {
-        fetch('/readBoardData')
+        fetch('http://localhost:3000/readBoardData')
             .then((response) => response.json())
             .then((data) => {
-                console.log("fetch: " + data.ticketList.toDo[0].text);
+                console.log("fetch: " + data.columns[0].name);
 
-                if (data.ticketList) {
-                    handleTicketListChange(data.ticketList);
+                if (data) {
+                    handleTicketListChange(data);
                 } else {
                     //handleTicketListChange(dataOnError);
                 }

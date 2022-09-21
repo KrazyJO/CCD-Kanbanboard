@@ -67,7 +67,7 @@ function App() {
         {ticketList && /** without a ticketlist (Housseyn Taks) i assume the first ticket in to as selected */
           <Board 
             ticketList={ticketList}
-            selectedTicket={selectedTicket || ticketList.toDo[0]}
+            selectedTicket={selectedTicket || ticketList.columns[0].name}
             newTicketText={newTicketText}
             selectTicket={selectTicket} 
             inputChange={inputChange}/>
