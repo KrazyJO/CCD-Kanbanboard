@@ -35,9 +35,49 @@ export class CRUDHandler implements ICRUDHandler {
     }
 
     @Get('readBoardData')
-    public getBoard(): TicketList {
+    public getBoard(): any{
         const db = FakeDB.getInstance();
-        return db.getTicketList();
+        console.log(db.getTicketList());
+        //return db.getTicketList();
+        const ticketList = {
+            "toDo": [
+                {
+                    text: "Test Do Text",
+                    positionInColumn: "1",
+                    id: "1"
+                },
+                {
+                    text: "Test Do Text 2",
+                    positionInColumn: "2",
+                    id: "4"
+                },
+                {
+                    text: "Test Do Text 3",
+                    positionInColumn: "3",
+                    id: "5"
+                },
+                {
+                    text: "WS Ticket",
+                    positionInColumn: "4",
+                    id: "6"
+                }
+            ],
+            "doing": [
+                {
+                    text: "Test Doing",
+                    positionInColumn: "1",
+                    id: "2"
+                }
+            ],
+            "done": [
+                {
+                    text: "Test Done",
+                    positionInColumn: "1",
+                    id: "3"
+                }
+            ],
+        }
+        return ticketList;
     }
     
     private sendUpdatesToClients() {

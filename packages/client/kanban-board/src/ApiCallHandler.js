@@ -1,12 +1,18 @@
 export default class ApiCallHandler {
     static readBoardData(handleTicketListChange) {
-        fetch('/readBoardData')
-            .then((response) => response.json())
+        fetch('http://localhost:3000/readBoardData', {
+        //    mode: "no-cors"
+        })
+            .then((response) => {
+                //console.log("erstes promise " + JSON.parse(response));
+                return response.json();
+            }
+            )
             .then((data) => {
-                console.log("fetch: " + data.ticketList.toDo[0].text);
+                console.log("fetch: " + data.toDo[0].text);
 
-                if (data.ticketList) {
-                    handleTicketListChange(data.ticketList);
+                if (data) {
+                    handleTicketListChange(data);
                 } else {
                     //handleTicketListChange(dataOnError);
                 }
@@ -15,7 +21,7 @@ export default class ApiCallHandler {
 
     static createTicket(ticket) {
         
-        const res = ApiCallHandler.postData("/createTicket", ticket);
+        const res = ApiCallHandler.postData("http://localhost:3000/createTicket", ticket);
         return res;
     }
 
@@ -34,6 +40,6 @@ export default class ApiCallHandler {
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         body: JSON.stringify(data) // body data type must match "Content-Type" header
         });
-        return response.json(); // parses JSON response into native JavaScript objects
+        return response; // parses JSON response into native JavaScript objects
     }
 }

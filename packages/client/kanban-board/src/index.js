@@ -8,7 +8,7 @@ function prepareAsyncSW() {
   if (true || process.env.NODE_ENV === 'development') {
     const { worker } = require('./mocks/browser')
     console.log("MOCK SW Running");
-    worker.start()
+  //  worker.start()
   }
 
   return Promise.resolve();
