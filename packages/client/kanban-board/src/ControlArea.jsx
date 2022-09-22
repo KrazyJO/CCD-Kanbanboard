@@ -2,6 +2,19 @@ import ApiCallHandler from "./ApiCallHandler"
 
 export default function ControlArea (props) {
 
+    const selectedTicket = props.selectedTicket;
+
+    function updateTicket() {
+        const updatedTicketText = document.querySelector('#ticketInput').value;
+        const ticket = {id: selectedTicket.id, title: selectedTicket.title, text: updatedTicketText};
+        ApiCallHandler.updateTicket(ticket);
+    }
+
+    function deleteTicket() {
+        const ticket = {id: selectedTicket.id};
+        ApiCallHandler.deleteTicket(ticket);
+    }
+
     return (
         <div className="controlContainer">
             <div className="textField">
@@ -23,8 +36,8 @@ export default function ControlArea (props) {
                     onClick={() => ApiCallHandler.createTicket({ticketText: props.ticketText})}>
                         Create
                 </button>
-                <button>Update</button>
-                <button>Delete</button>
+                <button onClick={() => updateTicket()}>Update</button>
+                <button onClick={() => deleteTicket()}>Delete</button>
             </div>
             <div className="moveControls">
                 <button className="leftButton">Left</button>

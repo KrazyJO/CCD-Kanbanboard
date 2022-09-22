@@ -1,7 +1,8 @@
 class TicketDTO {
     #text;
+    #id;
 
-    constructor(text) {
+    constructor(id, text) {
         this.#text = text;
     }
 
@@ -10,7 +11,12 @@ class TicketDTO {
     }
 
     toJSON() {
-        return {title: "", text: this.#text};
+        const transform = {title: "", text: this.#text};
+        if (this.#id)
+        {
+            transform.id = this.#id;
+        }
+        return transform;
     }
 }
 

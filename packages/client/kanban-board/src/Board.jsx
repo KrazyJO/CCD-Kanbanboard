@@ -3,6 +3,8 @@ import ControlArea from './ControlArea';
 
 export default function Board (props) {
 
+    console.log("selectedTicket: " + props.selectedTicket)
+
     return (
         <div className="board">
             <div className="ticketList">
@@ -11,6 +13,7 @@ export default function Board (props) {
             <div className="controlArea">
                {props.ticketList &&
                     <ControlArea
+                        selectedTicket={props.selectedTicket}
                         ticketTextNew={props.newTicketText? true : false} 
                         ticketText={props.newTicketText? props.newTicketText : props.selectedTicket.text}
                         inputChange={props.inputChange} />

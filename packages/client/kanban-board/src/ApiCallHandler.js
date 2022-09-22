@@ -1,5 +1,10 @@
 import TicketDTO from "./TicketDTO";
 
+const METHODS = {
+    DELETE: "DELETE",
+    POST: "POST"
+}
+
 export default class ApiCallHandler {
     static readBoardData(handleTicketListChange) {
         const url = this.buildUrl("/readBoardData");
@@ -12,13 +17,19 @@ export default class ApiCallHandler {
     }
 
     static createTicket(ticket) {
-        const ticketDTO = new TicketDTO(ticket.ticketText);
+        const ticketDTO = new TicketDTO(undefined, ticket.ticketText);
         const url = ApiCallHandler.buildUrl("/createTicket");
-        ApiCallHandler.postData(url, ticketDTO.toJSON());
+        ApiCallHandler.sendData(url, ticketDTO.toJSON());
     }
 
     static deleteTicket(ticket) {
-        console.log("delete ticket");
+        const url = ApiCallHandler.buildUrl("/receiveDelete");
+        ApiCallHandler.sendData(url, ticket, METHODS.DELETE);
+    }
+
+    static updateTicket(ticket) {
+        const url = ApiCallHandler.buildUrl("/receiveUpdate");
+        ApiCallHandler.sendData(url, ticket);
     }
 
     static fetchData(url, handleTicketListChange) {
@@ -31,10 +42,10 @@ export default class ApiCallHandler {
         });
     }
 
-    static postData(url = '', data = {}) {
+    static sendData(url = '', data = {}, method = METHODS.POST) {
         // Default options are marked with *
         fetch(url, {
-            method: 'POST',
+            method: method,
             mode: 'cors',
             cache: 'no-cache',
             credentials: 'same-origin',
