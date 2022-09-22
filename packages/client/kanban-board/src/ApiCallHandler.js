@@ -7,7 +7,7 @@ export default class ApiCallHandler {
     }
 
     static buildUrl(alias) {
-        const base = "http://localhost:3000";
+        const base = "http://localhost:3001";
         return base + alias;
     }
 
