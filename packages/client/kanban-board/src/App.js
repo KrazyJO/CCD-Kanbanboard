@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import Board from './Board.jsx';
-import {initWebSocket, closeWebSocket} from './WebSocketHandler';
+import {initWebSocket} from './WebSocketHandler';
 import ApiCallHandler from './ApiCallHandler';
 import './App.css';
 

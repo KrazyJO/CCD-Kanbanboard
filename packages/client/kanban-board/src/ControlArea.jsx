@@ -15,6 +15,13 @@ export default function ControlArea (props) {
         ApiCallHandler.deleteTicket(ticket);
     }
 
+    function createTicket() {
+        const ticket = {ticketText: props.ticketText};
+        ApiCallHandler.createTicket(ticket);
+    }
+
+    const createButtonEnabled = !props.ticketTextNew
+
     return (
         <div className="controlContainer">
             <div className="textField">
@@ -32,10 +39,8 @@ export default function ControlArea (props) {
             </div>
             <div className="crudControls">
                 <button
-                    disabled={!props.ticketTextNew} 
-                    onClick={() => ApiCallHandler.createTicket({ticketText: props.ticketText})}>
-                        Create
-                </button>
+                    disabled={createButtonEnabled} 
+                    onClick={() => createTicket()}>Create</button>
                 <button onClick={() => updateTicket()}>Update</button>
                 <button onClick={() => deleteTicket()}>Delete</button>
             </div>
