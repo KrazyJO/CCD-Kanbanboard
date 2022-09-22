@@ -1,39 +1,49 @@
+import TicketDTO from "./TicketDTO";
+
 export default class ApiCallHandler {
     static readBoardData(handleTicketListChange) {
-        fetch('http://localhost:3000/readBoardData')
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("fetch: " + data.columns[0].name);
+        const url = this.buildUrl("/readBoardData");
+        this.fetchData(url, handleTicketListChange);
+    }
 
-                if (data) {
-                    handleTicketListChange(data);
-                } else {
-                    //handleTicketListChange(dataOnError);
-                }
-            })
+    static buildUrl(alias) {
+        const base = "http://localhost:3000";
+        return base + alias;
     }
 
     static createTicket(ticket) {
-        
-        const res = ApiCallHandler.postData("/createTicket", ticket);
-        return res;
+        const ticketDTO = new TicketDTO(ticket.ticketText);
+        const url = ApiCallHandler.buildUrl("/createTicket");
+        ApiCallHandler.postData(url, ticketDTO.toJSON());
     }
 
-    static async postData(url = '', data = {}) {
-        // Default options are marked with *
-        const response = await fetch(url, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+    static deleteTicket(ticket) {
+        console.log("delete ticket");
+    }
+
+    static fetchData(url, handleTicketListChange) {
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data) {
+                    handleTicketListChange(data);
+                }
         });
-        return response.json(); // parses JSON response into native JavaScript objects
+    }
+
+    static postData(url = '', data = {}) {
+        // Default options are marked with *
+        fetch(url, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+            body: JSON.stringify(data)
+        });
     }
 }

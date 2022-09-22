@@ -1,24 +1,9 @@
 import { useCallback } from "react";
+import {io} from 'socket.io-client';
 
-export function initWebSocket(handleTicketListChange, setConnected, wsRef) {
-    console.log("init WS");
-    const ws = new WebSocket("ws://localhost:3000");
-    ws.onopen = () => {
-      setConnected(true);
-      console.log("ws client opened");
-    };
-    ws.onclose = () => {
-       // setConnected(false);
-        console.log("ws cleit closed");
-
-    }
-    ws.onmessage = (event) => {
-
-        handleTicketListChange(JSON.parse(event.data));
-    }
-    wsRef.current = ws;
-    
-    return true;
+export function initWebSocket() {
+    const socket = io("ws://127.0.0.1:3000");
+    return socket;
 }
 
 

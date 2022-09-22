@@ -1,12 +1,8 @@
 
-import { useState, useEffect, useRef } from 'react';
-
+import { useState, useEffect } from 'react';
 import Board from './Board.jsx';
-
 import {initWebSocket, closeWebSocket} from './WebSocketHandler';
-
 import ApiCallHandler from './ApiCallHandler';
-
 import './App.css';
 
 let wsInit = false;
@@ -15,39 +11,23 @@ function App() {
 
   const [ticketList, setTicketList] = useState(undefined); 
   const [selectedTicket, selectTicket] = useState(0); 
-
   const [newTicketText, setNewTicketText] = useState(undefined);
-
-  // WS 
-  const wsRef = useRef();
   const [connected, setConnected] = useState(false);
 
+  useEffect(initBoard, []);
 
-  useEffect(() => {
-              
+  function initBoard() {
     if (!wsInit) {
-      wsInit = initWebSocket(handleTicketListChange, setConnected, wsRef);
+      const socket = initWebSocket();
+      wsInit = true;
+      addSocketEvents(socket);
     }
-
-    // using of async functions in useEffekt is little tricky 
-    // the APicallHandler was the first approach, not lucky about giving the callback function
-    // in the fn call, testing is bad.
     ApiCallHandler.readBoardData(handleTicketListChange);
-    
-    // this approach isn't much better maybe there is time to make it better
-    // const fetchData = async () => {
-    //   const res = await fetch("/readBoardData");
-    //   // const data = await res.json();
-    //   return res.json();
-    //   // handleTicketListChange(data.ticketList);
-    // }
-    // const ticketList = async () => {
-    //   const list = await fetchData();
-    //   handleTicketListChange(list.ticketList);
-    // }
-    // ticketList();
-    console.log("effekt");
-  }, []);
+  }
+
+  function addSocketEvents(socket) {
+    socket.on("events", (data) => setTicketList(data) );
+  }
 
   function handleTicketListChange(list) {
     console.log(list);
@@ -56,7 +36,6 @@ function App() {
 
   function inputChange(evt) {
     setNewTicketText(evt.target.value);
-    // console.log("New Ticket: " + evt.target.value);
   }
 
   return (
